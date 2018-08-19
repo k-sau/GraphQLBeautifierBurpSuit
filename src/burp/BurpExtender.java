@@ -66,9 +66,12 @@ public class BurpExtender implements IBurpExtender, IMessageEditorTabFactory {
         
         @Override
         public boolean isEnabled(byte[] content, boolean isRequest) {
-            IRequestInfo requestInfo;
-            requestInfo = helpers.analyzeRequest(content);
-            return requestInfo.getContentType() == IRequestInfo.CONTENT_TYPE_JSON;
+            if(isRequest) {
+                IRequestInfo requestInfo;
+                requestInfo = helpers.analyzeRequest(content);
+                return requestInfo.getContentType() == IRequestInfo.CONTENT_TYPE_JSON;
+            }
+            return false;
         }
         
         @Override
